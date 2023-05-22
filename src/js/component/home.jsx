@@ -10,9 +10,13 @@ const Home = () => {
 
   function cargarTareas() {
     fetch("https://assets.breatheco.de/apis/fake/todos/user/agamero")
-      .then(response => response.json())
+      .then(response => { 
+        if (response.status == 404) {
+          crearListaTareas()
+        }
+        return response.json()})
       .then(data => {
-        setListaTareas(data);
+       setListaTareas(data);
       })
       .catch(error => {
         console.log(error);
